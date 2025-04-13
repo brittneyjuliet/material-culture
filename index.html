@@ -1,4 +1,78 @@
-<h1> heading</h1> 
-<p> paragraph element</p>
-<a href="https://google.com"> click me! i'm a link</a>
-<img src=""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Making the Immaterial Material</title>
+    <style>
+        body{margin:40px
+        auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0
+        10px}h1,h2,h3{line-height:1.2}
+    </style>
+</head>
+<body>
+    <h2> Making the Immaterial Material - Supplementary Site</h1>
+        <aside>This site delves a bit deeper into the technical aspect of BRAIDS_.</aside>
+    
+    <p>
+        <div style="text-align: center;">
+            <iframe src="https://player.vimeo.com/video/942352610?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="480" height="270" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="BRAIDS_"></iframe>
+        </div>
+    </p>
+    
+    <h3>Strands</h3> 
+    <p> One of the primary interaction points of BRAIDS\, the strands that are woven through capacitive sensing cores to create braided patterns, are comprised of ropes of yarn that are loosely intertwined with conductive thread. In order to create a conductive material that can be detected by the capacitive sensing cores, five volts of electricity were sent through each strand such that the capacitance of each strand can be read, thus determining the crossing points. </p>
+    <p>While the basic premise of the strands remained the same throughout the process, many iterations were made until the last "roped strands" were selected as the most feasible option. Initially, three single strands of yarn were physically braided to create a strand robust enough for user manipulation. Once the desired "weight" was achieved, conductive thread was wrapped around the length of each strand to create a conductive surface. Although the resultant strand was perfectly serviceable, it wasn't particularly pleasing aesthetically, and other methods were employed. </p>
+    <p>The second iteration, although very short-lived, included a very time-consuming process that included measuring a desired length of yarn (that can be woven throughout the four rows of cores with a bit of extra clearance for good measure), cutting three strands of yarn and one strand of conductive thread to length, and meticulously switching between wrapping yarn and conductive thread around the "scaffolding" strands to create alternating more and less conductive sections in hopes of mitigating unwanted spikes of capacitance readings of adjacent cores. The process was excruciatingly slow and, as such, was quickly abandoned.</p>
+    
+    <div style="text-align: center;">
+        <img src="img/strands.jpg"
+        style="width:415px;height:301px;">
+        <aside> Chronological iteration of strand construction. From left to right: braided yarn wrapped with conductive thread; alternating conductive and non-conductive sections; roped yarn; and roped yarn interwoven with conductive thread.</aside>
+    </div>
+    
+    <p>The last method, the "roped" strand, proved to be the most attractive-looking and effective approach for the needs of the project. The roped strand was achieved through the following process: </p>
+    
+    <p> 
+        <ul>
+            <li>Measuring a length of yarn and conductive thread approximately five times the length of the desired strand.</li> 
+            <li>Tying both ends of the yarn and conductive thread together, creating a single loop consisting of a strand of yarn and a strand of conductive thread.</li>
+            <li>Firmly attaching one end of the loop to a fixed surface.</li>
+            <li>Placing the other end of the loop around a finger, and twisting the loop around itself until the (now "roped" loop) begins to twist into itself.</li>
+            <li>Once the rope was been sufficiently tightened, the two end sections are carefully removed from their fixed locations and are the securely fastened around one another.</li>
+        </ul>
+    </p>
+
+    <p>Although the selected method of strand creation still created a bit of interference with adjacent cores, fine-tuning the cores within the Arduino code has managed to create enough stability such that feedback is no longer a concern (for the current iteration of the project).</p>
+       
+    <h3>Cores</h3>
+    <p>The cores were perhaps the most involved of the fabricated components of BRAIDS\_, although the conceptual idea of the cores remained fairly consistent throughout the entire duration of the project. The cores consist of a copper inner core, an insulator, and an external 3D printed outer core to ensure uniformity.</p>
+    
+    <div style="text-align: center;">
+        <img src="img/putty_core_upright.jpg"
+        style="width:378px;height:504px;">
+        <aside> Early core prototype; this iteration includes a 3D-printed inner and outer core with the inner core being lined with copper tape</aside>
+    </div>
+    
+    <p>The earliest iteration of the core didn't contain a copper ring, rather, it contained an additional 3D printed inner core lined with copper tape. The most challenging aspect of core fabrication, was selecting an insulating material both durable (and insulating) enough to withstand continuous and frequent use. Materials tested (and considered) included plumber's putty, air dry clay, polymer clay, and Sculpey. The material ultimately selected was Apoxie Sculpt that, although a bit challenging to work with as it begins the hardening process within an hour of use, exceeded expectations; it's incredibly durable, is quite beautiful in its natural state, and provides sufficient insulation for the cores.</p>
+    <p>The capacitive sensors are wired into an Arduino microcontroller whereby pulses are sent from an output pin to an input pin through a 1-megaohm resistor - the sensor is connected to the same rail as the input pin. An arbitrary counter measures the amount of time it takes for the input pin to receive the pulse; conductive surfaces disrupt the electric field of the capacitive sensors, therefore lengthening the amount of time it takes for the input pin to receive the pulse. A series of conditional statements check whether or not cores have been intersected dependent upon a selected threshold value.</p> 
+    
+    <h3>Performance Practice</h3>
+    <p>At the time of this writing, BRAIDS\_ has been performed once in an informal context. As such, the performance practice, although established, is quite fluid and subject to change.</p>
+    
+    <div style="text-align: center;">
+        <img src="img/braids_performance.png"
+        style="width:439px;height:235px;">
+        <aside> BRAIDS_ during performance.</aside>
+    </div>
+
+    <h4>Braiding/Initializing a Sequence</h4>
+    <p>In order to initialize a sequence the user must, first, construct a braid. After the successful construction of a braid (notated by the illumination of the TouchOSC LEDs), the user has the ability to activate the digital braid (thus, the sequence. Without the activation of the digital braid/sequence, the user will not be able to create or manipulate a sequence). </p>
+    <h4>Programming Sequence Steps</h4>
+    <p>Each sequence consists of a variable number of steps (according to the size of the window) and four possible pitch values (which allow for repetitive polyrhythmic sequencing); although there's nothing stopping the user from dynamically modifying the pitch of the sequence during performance. The sequencer has been programmed such that every fourth pitch is paired i.e. in a seven step sequence, the pitches for steps 1 and 5, 2 and 6, and 3 and 7 are paired while step 4 remains independent. Each of the four synthesizer controls on the TouchOSC interface contain 4 pitch sliders for user manipulation. Additionally, the user has access to tempo as well as timbre and adsr (attack, decay, sustain, release) controls. Once an initial braid has been programmed and sequenced, the user is free to begin the process again for up to three more braids. The current iteration of the project supports four braids, although future iterations may support dozens.</p>
+    <h3>To Metronome? Or Not?</h3>
+    <p>As the primary communication between the playhead and sequencer takes place over open sound control (OSC) via the internet, the inherent "clock" driving BRAIDS\_ is weak at best and downright shameful (musically speaking) at worst - the lag introduced via OSC made tempo/speed consistency impossible to achieve. Due to the experimental nature of electronic music, the phasing that occurs as the result of an inconsistent clock isn't necessarily a bad thing, but the first author was interested in a performance practice that allowed for precise control of clock speed and variance. In order to allow for more modes of expression, a system was created whereby the user has the ability to freely choose between metronomic and "phase" time. </p>
+    <p>In order to keep the two somewhat synchronous, beats per measure is converted into beats per frame in pure data - the resultant value, yspeed, is added to the corresponding playhead at a framerate of 60 frames per second. </p>
+    <p>If metronomic time is desired, the user need only select the metronome toggle on the TouchOSC interface. Once the toggle has been selected, the sequencer will, first, complete the last cycle of the sequence; as the first beat of the next cycle is triggered, the metronome (which always reflects the bpm of yspeed)
+        is toggled on, thereby quantizing the playhead to pure data's clock.</p>
+</body>
+</html>
+
