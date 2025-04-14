@@ -61,6 +61,32 @@
     <p>The earliest iteration of the core didn't contain a copper ring, rather, it contained an additional 3D printed inner core lined with copper tape. The most challenging aspect of core fabrication, was selecting an insulating material both durable (and insulating) enough to withstand continuous and frequent use. Materials tested (and considered) included plumber's putty, air dry clay, polymer clay, and Sculpey. The material ultimately selected was Apoxie Sculpt that, although a bit challenging to work with as it begins the hardening process within an hour of use, exceeded expectations; it's incredibly durable, is quite beautiful in its natural state, and provides sufficient insulation for the cores.</p>
     <p>The capacitive sensors are wired into an Arduino microcontroller whereby pulses are sent from an output pin to an input pin through a 1-megaohm resistor - the sensor is connected to the same rail as the input pin. An arbitrary counter measures the amount of time it takes for the input pin to receive the pulse; conductive surfaces disrupt the electric field of the capacitive sensors, therefore lengthening the amount of time it takes for the input pin to receive the pulse. A series of conditional statements check whether or not cores have been intersected dependent upon a selected threshold value.</p> 
     
+
+    <h3>Digital Representation</h3>
+
+    <div style="text-align: center;">
+        <img src="img/braids_screenshot.png"
+        style="width:400px;height:341px;">
+        <aside> Digital braids and playheads. When a playhead intersects with a crossing point (represented by blue dots), an osc message is sent to the pure data synthesizer/sequencer.</aside>
+    </div>
+
+    <p>In order to digitally represent the physical braids created by users, a JS script by programmer and generative artist Dan Gries was modified for this specific use case:
+        <a href="https://web.archive.org/web/20231130135018/http://rectangleworld.com/blog/archives/733">click me!</a>
+        Gries' code is based upon Emil Artin's concept of braid groups and generates random braids upon each refresh of the browser window. In order to generate continuous braids, braid groups are drawn one row at a time; as consecutive braid groups are drawn below preceding groups, the appearance of singular braided strands (as opposed to a collection of braid groups) is perceived. The adaptation of Gries' code waits for user input by way of crossings - once a user creates a physical braid, the "braid value" is sent to a pure data sketch that, in turn, communicates to a p5 sketch the values of the crossings (left, right, or none). The p5 sketch expects two values; a value for row: 0 of the braid and another for row: 1 (essentially, a value for the two braid groups that will create a single braid). As it relates to the number of values expected, multiple values allow for more complex braid creation. The values are then applied to a dictionary that is later parsed within the draw function.
+    </p>
+
+    <h3>Parameter Manipulation</h3>
+    <p>Initially, BRAIDS_ consisted of two distinct sections: the braiding interaction and a series of 30 knobs that allowed for direct synthesizer parameter manipulation by the user in real-time. A last-minute wire disconnection (due to the prototypical nature of the device) required a quick redesign of the parameter manipulation portion of the interface. As it wasn't feasible to isolate the single offending wire in the impossible-to-navigate mess that was the inside of the interface, a TouchOSC interface was created instead and, much to my chagrin, was surprisingly effective (and spoke more to a design language that supports the braiding section of the interface as the primary interaction due to the small amount of space required for the iPad).</p>
+    
+    <div style="text-align: center;">
+        <img src="img/braids_initial prototype.png"
+        style="width:415px;height:300px;">
+        <aside> An early BRAIDS\_ prototype. Pictured are strands of conductive thread woven into capacitive sensing cores on the left and potentiometers that modify common synthesizer parameters (e.g. pitch control, filter cutoff, etc.) on the right. Later versions remove the potentiometers in favor of a TouchOSC interface.</aside>
+    </div>
+    
+    <p>Each braid is an independent synthesizer + sequencer combination that contains all of the traditional synth/seq fare: multiple waveforms to choose from, an envelope generator, a filter, gain control, pitch selection, and tempo control. Additionally, the TouchOSC interface provides feedback regarding the construction of the braids; the four circles on the bottom of the interface behave as digital LEDs that represent the completed path of each strand dependent upon the selected braid i.e. if strand number one of a traditional three strand braid is woven through the correct cores, the corresponding "LED" will illuminate. </p>
+    <p>Lastly, each braid can be "activated" or "deactivated" from the interface at will, allowing the user layer independent melodic ideas to create complex polyrhythmic sequences if desired. While not a perfect solution - the TouchOSC interface interface isn't conducive to subtle/precise parameter changes - it does provide a powerful tool in terms of flexibility during performance.  </p>
+
     <h3>Performance Practice</h3>
     <p>At the time of this writing, Braids_ has been performed once in an informal context. As such, the performance practice, although established, is quite fluid and subject to change.</p>
     
